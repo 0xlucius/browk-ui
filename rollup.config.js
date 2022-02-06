@@ -12,10 +12,12 @@ export default [
       {
         file: "dist/cjs/index.js",
         format: "cjs",
+        sourcemap: true,
       },
       {
         file: "dist/esm/index.js",
         format: "esm",
+        sourcemap: true,
       },
     ],
     plugins: [
@@ -28,7 +30,7 @@ export default [
     external: ["react", "react-dom", "styled-components"],
   },
   {
-    input: "dist/esm/types/index.d.ts",
+    input: "dist/esm/dist/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },
