@@ -14,6 +14,7 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
+  variation: "fill",
   primary: true,
   disabled: false,
   text: "Primary",

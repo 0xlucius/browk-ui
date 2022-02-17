@@ -1,8 +1,29 @@
 import React from "react";
+import { colors, typography } from "./theme";
 import styled, { css } from "styled-components";
+
+const variations = {
+  fill: css<ButtonProps>`
+    background-color: ${(props) =>
+      props.disabled ? colors.primaryDisabled : colors.primary};
+
+    &:hover {
+      background-color: ${colors.primaryHover};
+    }
+
+    &:active {
+      background-color: ${colors.primaryActive};
+    }
+
+    &:focus {
+      border: 2px solid rgba(17, 17, 17, 0.48);
+    }
+  `,
+};
 
 export interface ButtonProps {
   text?: string;
+  variation?: keyof typeof variations;
   primary?: boolean;
   disabled?: boolean;
   size?: "small" | "medium" | "large";
@@ -24,12 +45,11 @@ const StyledButton = styled.button<ButtonProps>`
       : props.size === "medium"
       ? "9px 30px 11px"
       : "14px 30px 16px"};
-  color: ${(props) => (props.primary ? "#1b116e" : "#ffffff")};
-  background-color: ${(props) => (props.primary ? "#6bedb5" : "1b116e")};
+  color: ${(props) => (props.primary ? colors.white : colors.primary)};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
-  &:hover {
-    background-color: ${(props) => (props.primary ? "#55bd90" : "6bedb5")};
-  }
+
+  ${(props) => variations[props.variation || "fill"]}
+
   &:active {
     border: solid 2px #1b116e;
     padding: ${(props) =>
@@ -43,6 +63,7 @@ const StyledButton = styled.button<ButtonProps>`
 
 const Button = ({
   size,
+  variation,
   primary,
   disabled,
   text,
@@ -53,6 +74,7 @@ const Button = ({
     <StyledButton
       type="button"
       onClick={onClick}
+      variation={variation}
       primary={primary}
       disabled={disabled}
       size={size}
